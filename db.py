@@ -52,10 +52,8 @@ class Database:
     def sync_photos(self) -> None:
         with self._db as db:
             for photo in os.listdir(self._photos_dir):
-                if photo.is_dir():
-                    continue
                 if f"{self._photos_dir}/{photo}" not in db:
-                    if imghdr.what(f"{self._photos_dir}/{photo}") is None:
+                    if not os.path.isdir(f"{self._photos_dir}/{photo}") or imghdr.what(f"{self._photos_dir}/{photo}") is None:
                         logger.info(f"Skipping non-image file {photo}")
                         continue
 
