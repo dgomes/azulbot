@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import os
 from atproto import Client
 from atproto.xrpc_client.models.com.atproto.repo.create_record import Response
