@@ -2,7 +2,7 @@ from dataclasses import dataclass
 import pickle
 import os
 import logging
-import imghdr
+import filetype 
 from datetime import datetime
 
 logger = logging.getLogger(__name__)
@@ -53,7 +53,11 @@ class Database:
         with self._db as db:
             for photo in os.listdir(self._photos_dir):
                 if f"{self._photos_dir}/{photo}" not in db:
-                    if not os.path.isdir(f"{self._photos_dir}/{photo}") or imghdr.what(f"{self._photos_dir}/{photo}") is None:
+                    if os.path.isdir(f"{self._photos_dir}/{photo}"):
+                        logger.info(f"Skipping folder {photo}")
+                        continue
+                    ftype = filetype.guess(f"{self._photos_dir}/{photo}")
+                    if ftype is None or not ftype.mime.startswith('image'):
                         logger.info(f"Skipping non-image file {photo}")
                         continue
 
