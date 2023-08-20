@@ -2,6 +2,7 @@ from dataclasses import dataclass
 import pickle
 import os
 import logging
+import imghdr
 from datetime import datetime
 
 logger = logging.getLogger(__name__)
@@ -51,6 +52,9 @@ class Database:
     def sync_photos(self) -> None:
         with self._db as db:
             for photo in os.listdir(self._photos_dir):
+                if imghdr.what(f"{self._photos_dir}/{photo}") is None:
+                    logger.info(f"Skipping non-image file {photo}")
+                    continue
                 if f"{self._photos_dir}/{photo}" not in db:
                     logger.info(f"Adding new photo {photo}")
                     db[f"{self._photos_dir}/{photo}"] = Photo(
