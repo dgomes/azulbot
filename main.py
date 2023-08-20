@@ -3,10 +3,9 @@ import os
 import sys
 import argparse
 
-from db import Database
+from db import Database, DatabaseError
 from bot import Bot
 from const import DB_FILE, PHOTOS_DIR
-from atproto.xrpc_client.models.com.atproto.repo.create_record import Response
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -23,7 +22,11 @@ def main(args):
 
     else:
         bot = Bot()
-        photo, metadata = db.use_photo()
+        try:
+            photo, metadata = db.use_photo()
+        except DatabaseError:
+            logger.error("No photos available")
+            return 1
         resp = bot.send_photo(path=photo, caption=metadata)
         db.update_photo(photo, resp)
 
