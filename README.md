@@ -12,7 +12,7 @@ This is a Blue (Azul in Portuguese) Bot that posts random photos
 ```
 usage: main.py [-h] [--sync] [--dump] [--replies]
 
-Twitter Image Bot
+AzulBot - Blue Sky Image Bot
 
 optional arguments:
   -h, --help  show this help message and exit
