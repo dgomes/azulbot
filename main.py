@@ -33,7 +33,7 @@ def main(args):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Twitter Image Bot")
+    parser = argparse.ArgumentParser(description="AzulBot - Blue Sky Image Bot")
     parser.add_argument(
         "--sync", help="syncronize imagedir with database", action="store_true"
     )
