@@ -28,7 +28,7 @@ def main(args):
         except DatabaseError:
             logger.error("No photos available")
             return 1
-        resp = bot.send_photo(path=photo, caption=metadata)
+        resp = bot.send_photo(path=photo, caption=metadata.caption)
         db.update_photo(photo, resp)
 
 
