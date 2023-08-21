@@ -27,7 +27,7 @@ class Bot:
             if not image_alt or image_alt == "":
                 image_alt = IMAGE_ALT
 
-            return Response(11, 22)
+            #return Response(11, 22)
             response = self._client.send_image(
                 text=caption, image=img_data, image_alt=image_alt
             )
