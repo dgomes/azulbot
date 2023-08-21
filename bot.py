@@ -1,10 +1,13 @@
 from __future__ import annotations
 
 import os
+import logging
 from atproto import Client
 from atproto.xrpc_client.models.com.atproto.repo.create_record import Response
 
 from const import IMAGE_ALT, DEFAULT_CAPTION
+
+logger = logging.getLogger(__name__)
 
 
 class Bot:
@@ -28,6 +31,8 @@ class Bot:
                 image_alt = IMAGE_ALT
 
             #return Response(11, 22)
+            logger.info(f"Sending photo {path} with caption {caption}")
+
             response = self._client.send_image(
                 text=caption, image=img_data, image_alt=image_alt
             )
