@@ -10,12 +10,13 @@ from const import DB_FILE, PHOTOS_DIR
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+
 def main(args):
     db = Database(DB_FILE, PHOTOS_DIR)
     if args.sync:
         print("Syncronizing database with imagedir")
         db.sync_photos()
-        
+
     elif args.dump:
         print("Dumping database")
         db.dump()
@@ -23,7 +24,7 @@ def main(args):
     else:
         bot = Bot()
         try:
-            photo, metadata = db.use_photo()
+            photo, metadata = db.get_photo()
         except DatabaseError:
             logger.error("No photos available")
             return 1

@@ -6,14 +6,19 @@ from atproto.xrpc_client.models.com.atproto.repo.create_record import Response
 
 from const import IMAGE_ALT, DEFAULT_CAPTION
 
+
 class Bot:
-    def __init__(self, handle: str|None = None, password: str|None = None) -> None:
+    def __init__(self, handle: str | None = None, password: str | None = None) -> None:
         self._handle = os.environ.get("BSKY_USERNAME") if handle is None else handle
-        self._password = os.environ.get("BSKY_PASSWORD") if password is None else password   
+        self._password = (
+            os.environ.get("BSKY_PASSWORD") if password is None else password
+        )
         self._client = Client()
         self._client.login(self._handle, self._password)
-    
-    def send_photo(self, path: str, caption: str|None, image_alt: str|None = None) -> None:
+
+    def send_photo(
+        self, path: str, caption: str | None, image_alt: str | None = None
+    ) -> None:
         with open(path, "rb") as f:
             img_data = f.read()
 
@@ -27,5 +32,4 @@ class Bot:
                 text=caption, image=img_data, image_alt=image_alt
             )
 
-            return response 
-
+            return response
